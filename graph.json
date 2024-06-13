@@ -32,14 +32,21 @@
         },
         {
             "id": "node-7",
-            "type": "SwapIncrement",
-            "data": {
-                "increment": 100
-            }
+            "type": "SwapIncrement"
         },
         {
             "id": "node-8",
             "type": "subtract"
+        },
+        {
+            "id": "node-9",
+            "type": "input",
+            "data": {
+                "value": {
+                    "a": 50,
+                    "b": 50
+                }
+            }
         }
     ],
     "edges": [
@@ -116,6 +123,13 @@
             "target": "node-8",
             "source_handle": "b",
             "target_handle": "b"
+        },
+        {
+            "id": "e9-7",
+            "source": "node-9",
+            "target": "node-7",
+            "source_handle": "a",
+            "target_handle": "increment"
         }
     ]
 }

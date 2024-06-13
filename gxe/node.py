@@ -1,3 +1,6 @@
+import inspect
+
+
 class Node:
     """
     Represents a node in a graph execution engine.
@@ -19,14 +22,32 @@ class Node:
         self.output = None
 
         self.type = type(operation).__name__
-        self._init_class() if self.type == "type" else None
+        self._init_class() if (self.type == "type" and self.inputs) else None
+
+    def _split_dictionary(self, dictionary, keys_to_pop):
+        """
+        Splits a dictionary into two dictionaries based on the keys to pop.
+
+        Args:
+            dictionary (dict): The dictionary to split.
+            keys_to_pop (list): The keys to pop from the dictionary.
+
+        Returns:
+            dict, dict: Two dictionaries, one with the popped keys and one without the popped keys.
+        """
+        popped = {key: dictionary.pop(key) for key in keys_to_pop}
+        return popped, dictionary
 
     def _init_class(self):
         """
         Initializes the operation if it is a class.
         """
-        self.operation = self.operation(**self.inputs)
-        self.inputs = {}
+        inputs, self.inputs = self._split_dictionary(
+            self.inputs,
+            inspect.getfullargspec(self.operation.__init__).args[1:],
+        )
+        self.operation = self.operation(**inputs)
+        self.type = "function"
 
     def set_input(self, name, value):
         """
@@ -42,4 +63,6 @@ class Node:
         """
         Executes the operation and stores the output.
         """
+        if self.type == "type":
+            self._init_class()
         self.output = self.operation(**self.inputs)
