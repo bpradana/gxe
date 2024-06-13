@@ -29,7 +29,6 @@ def divide(a, b):
 class SwapIncrement:
     def __init__(self, increment):
         self.increment = increment
-        pass
 
     def __call__(self, a, b):
         return {"a": b + self.increment, "b": a + self.increment}
