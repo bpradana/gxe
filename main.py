@@ -7,6 +7,10 @@ def input(value):
     return value
 
 
+def swap(a, b):
+    return {"a": b, "b": a}
+
+
 def add(a, b):
     return a + b
 
@@ -36,6 +40,7 @@ if __name__ == "__main__":
         "subtract": subtract,
         "multiply": multiply,
         "divide": divide,
+        "swap": swap,
     }
 
     engine = GraphExecutionEngine(graph, node_registry)

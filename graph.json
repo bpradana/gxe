@@ -29,6 +29,14 @@
         {
             "id": "node-6",
             "type": "multiply"
+        },
+        {
+            "id": "node-7",
+            "type": "swap"
+        },
+        {
+            "id": "node-8",
+            "type": "subtract"
         }
     ],
     "edges": [
@@ -78,6 +86,32 @@
             "id": "e5-6",
             "source": "node-5",
             "target": "node-6",
+            "target_handle": "b"
+        },
+        {
+            "id": "e1-7",
+            "source": "node-1",
+            "target": "node-7",
+            "target_handle": "a"
+        },
+        {
+            "id": "e2-7",
+            "source": "node-2",
+            "target": "node-7",
+            "target_handle": "b"
+        },
+        {
+            "id": "e7-8",
+            "source": "node-7",
+            "target": "node-8",
+            "source_handle": "a",
+            "target_handle": "a"
+        },
+        {
+            "id": "e7-8",
+            "source": "node-7",
+            "target": "node-8",
+            "source_handle": "b",
             "target_handle": "b"
         }
     ]

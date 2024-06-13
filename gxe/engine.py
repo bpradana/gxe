@@ -38,7 +38,12 @@ class GraphExecutionEngine:
                 if edge["source"] == node_id:
                     target_node_id = edge["target"]
                     target_node = self.nodes[target_node_id]
-                    target_node.set_input(edge["target_handle"], node.output)
+                    output = (
+                        node.output[edge["source_handle"]]
+                        if "source_handle" in edge
+                        else node.output
+                    )
+                    target_node.set_input(edge["target_handle"], output)
                     self.in_degree[target_node_id] -= 1
                     if self.in_degree[target_node_id] == 0:
                         queue.append(target_node_id)
