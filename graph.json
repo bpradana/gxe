@@ -32,7 +32,10 @@
         },
         {
             "id": "node-7",
-            "type": "swap_increment"
+            "type": "swap_increment",
+            "data": {
+                "increment": 100
+            }
         },
         {
             "id": "node-8",

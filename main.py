@@ -45,7 +45,7 @@ if __name__ == "__main__":
         "subtract": subtract,
         "multiply": multiply,
         "divide": divide,
-        "swap_increment": SwapIncrement(100),
+        "swap_increment": SwapIncrement,
     }
 
     engine = GraphExecutionEngine(graph, node_registry)
