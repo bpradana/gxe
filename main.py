@@ -1,6 +1,6 @@
 import json
 
-from gxe import GraphExecutionEngine
+from gxe import GraphExecutionEngine, NodeRegistry
 
 
 def input(value):
@@ -39,14 +39,17 @@ if __name__ == "__main__":
     with open("graph.json", "r") as f:
         graph = json.load(f)
 
-    node_registry = {
-        "input": input,
-        "add": add,
-        "subtract": subtract,
-        "multiply": multiply,
-        "divide": divide,
-        "swap_increment": SwapIncrement,
-    }
+    node_registry = NodeRegistry()
+    node_registry.register(
+        [
+            input,
+            add,
+            subtract,
+            multiply,
+            divide,
+            SwapIncrement,
+        ]
+    )
 
     engine = GraphExecutionEngine(graph, node_registry)
     engine.parse_node()
