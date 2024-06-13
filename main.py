@@ -7,10 +7,6 @@ def input(value):
     return value
 
 
-def swap(a, b):
-    return {"a": b, "b": a}
-
-
 def add(a, b):
     return a + b
 
@@ -30,6 +26,15 @@ def divide(a, b):
         raise ValueError("Cannot divide by zero.")
 
 
+class SwapIncrement:
+    def __init__(self, increment):
+        self.increment = increment
+        pass
+
+    def __call__(self, a, b):
+        return {"a": b + self.increment, "b": a + self.increment}
+
+
 if __name__ == "__main__":
     with open("graph.json", "r") as f:
         graph = json.load(f)
@@ -40,7 +45,7 @@ if __name__ == "__main__":
         "subtract": subtract,
         "multiply": multiply,
         "divide": divide,
-        "swap": swap,
+        "swap_increment": SwapIncrement(100),
     }
 
     engine = GraphExecutionEngine(graph, node_registry)
