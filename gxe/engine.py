@@ -2,6 +2,21 @@ from gxe.node import Node
 
 
 class GraphExecutionEngine:
+    """
+    Executes a graph-based computation by traversing the nodes and their connections.
+
+    Args:
+        graph (dict): The graph representation containing nodes and edges.
+        node_registry (dict): A registry of available node types.
+
+    Attributes:
+        graph (dict): The graph representation containing nodes and edges.
+        node_registry (dict): A registry of available node types.
+        nodes (dict): A dictionary of nodes in the graph, with node IDs as keys and Node objects as values.
+        in_degree (dict): A dictionary that stores the in-degree of each node.
+
+    """
+
     def __init__(self, graph, node_registry):
         self.graph = graph
         self.node_registry = node_registry
@@ -9,6 +24,10 @@ class GraphExecutionEngine:
         self.in_degree = {}
 
     def parse_node(self):
+        """
+        Parses the nodes in the graph and initializes the nodes and in-degree dictionaries.
+
+        """
         for node in self.graph["nodes"]:
             node_id = node["id"]
             node_type = node["type"]
@@ -27,6 +46,13 @@ class GraphExecutionEngine:
             self.in_degree[target_node_id] += 1
 
     def execute(self):
+        """
+        Executes the graph by traversing the nodes and their connections.
+
+        Returns:
+            dict: A dictionary of executed nodes, with node IDs as keys and Node objects as values.
+
+        """
         queue = [node_id for node_id, degree in self.in_degree.items() if degree == 0]
 
         while queue:
