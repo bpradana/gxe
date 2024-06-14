@@ -82,8 +82,10 @@ node_registry.register(
 ```
 3. Load the graph from a JSON file.
 ```python
-with open("graph.json", "r") as file:
-    graph = Graph.from_json(file.read())
+import json
+
+with open("graph.json", "r") as f:
+    graph = json.load(f)
 ```
 4. Create a graph execution engine.
 ```python
