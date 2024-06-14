@@ -31,7 +31,7 @@ The `edges` key contains a list of edges. Each edge is a dictionary with the fol
     "target_handle": "input" // optional, input of the target node if the target node has multiple inputs
 }
 ```
-For more information, see the [graph.json](graph.json) file.
+For more information, see the [graph.json](graph.json) file. The JSON file can be represented into this graph ![graph](graph.png).
 ### Python code
 1. Define some functions or callables.
 ```python
