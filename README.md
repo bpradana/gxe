@@ -98,6 +98,22 @@ engine.parse_node()
 ```python
 result = engine.execute()
 ```
+6. Print the result.
+```python
+for node in result.values():
+    print(node)
+```
+```
+Node node-1 | Label: input | Inputs: {'value': 3} | Output: 3
+Node node-2 | Label: input | Inputs: {'value': 4} | Output: 4
+Node node-3 | Label: add | Inputs: {'a': 3, 'b': 4} | Output: 7
+Node node-4 | Label: subtract | Inputs: {'a': 3, 'b': 7} | Output: -4
+Node node-5 | Label: divide | Inputs: {'a': 4, 'b': 7} | Output: 0.5714285714285714
+Node node-6 | Label: multiply | Inputs: {'b': 0.5714285714285714, 'a': -4} | Output: -2.2857142857142856
+Node node-7 | Label: SwapIncrement | Inputs: {'a': 3, 'b': 4} | Output: {'a': 54, 'b': 53}
+Node node-8 | Label: subtract | Inputs: {'a': 54, 'b': 53} | Output: 1
+Node node-9 | Label: input | Inputs: {'value': {'a': 50, 'b': 50}} | Output: {'a': 50, 'b': 50}
+```
 
 ## How it works?
 Basically, you create a graph with nodes. Each node is a Python function (or callable if you want to be more general). You connect the nodes with edges. When you run the graph, it executes the nodes in order based on the nodes dependencies.

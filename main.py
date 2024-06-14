@@ -54,7 +54,5 @@ if __name__ == "__main__":
     engine.parse_node()
     result = engine.execute()
 
-    for node_id, node in result.items():
-        print(
-            f"node {node_id} | label: {node.label} | inputs: {node.inputs} | output: {node.output}"
-        )
+    for node in result.values():
+        print(node)

@@ -66,3 +66,9 @@ class Node:
         if self.type == "type":
             self._init_class()
         self.output = self.operation(**self.inputs)
+
+    def __str__(self):
+        return f"Node {self.id} | Label: {self.label} | Inputs: {self.inputs} | Output: {self.output}"
+
+    def __repr__(self) -> str:
+        return f"Node {self.id} | Label: {self.label} | Inputs: {self.inputs} | Output: {self.output}"
