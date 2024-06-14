@@ -16,27 +16,80 @@
         },
         {
             "id": "node-3",
-            "type": "add"
+            "type": "add",
+            "data": {
+                "_meta": {
+                    "target_handle": [
+                        "a",
+                        "b"
+                    ]
+                }
+            }
         },
         {
             "id": "node-4",
-            "type": "subtract"
+            "type": "subtract",
+            "data": {
+                "_meta": {
+                    "target_handle": [
+                        "a",
+                        "b"
+                    ]
+                }
+            }
         },
         {
             "id": "node-5",
-            "type": "divide"
+            "type": "divide",
+            "data": {
+                "_meta": {
+                    "target_handle": [
+                        "a",
+                        "b"
+                    ]
+                }
+            }
         },
         {
             "id": "node-6",
-            "type": "multiply"
+            "type": "multiply",
+            "data": {
+                "_meta": {
+                    "target_handle": [
+                        "a",
+                        "b"
+                    ]
+                }
+            }
         },
         {
             "id": "node-7",
-            "type": "SwapIncrement"
+            "type": "SwapIncrement",
+            "data": {
+                "_meta": {
+                    "target_handle": [
+                        "increment",
+                        "a",
+                        "b"
+                    ],
+                    "source_handle": [
+                        "a",
+                        "b"
+                    ]
+                }
+            }
         },
         {
             "id": "node-8",
-            "type": "subtract"
+            "type": "subtract",
+            "data": {
+                "_meta": {
+                    "target_handle": [
+                        "a",
+                        "b"
+                    ]
+                }
+            }
         },
         {
             "id": "node-9",
@@ -45,6 +98,12 @@
                 "value": {
                     "a": 50,
                     "b": 50
+                },
+                "_meta": {
+                    "source_handle": [
+                        "a",
+                        "b"
+                    ]
                 }
             }
         }

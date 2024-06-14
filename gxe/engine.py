@@ -31,13 +31,17 @@ class GraphExecutionEngine:
         for node in self.graph["nodes"]:
             node_id = node["id"]
             node_type = node["type"]
-            node_data = node["data"] if "data" in node else {}
+
+            data = node["data"] if "data" in node else {}
+            node_meta = data.pop("_meta", {})
+            node_data = data
 
             self.nodes[node_id] = Node(
                 node_id,
                 node_type,
                 self.node_registry[node_type],
                 node_data,
+                node_meta,
             )
             self.in_degree[node_id] = 0
 
