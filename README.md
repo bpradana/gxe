@@ -10,6 +10,29 @@ echo "It's not a package yet. Just clone the repo and run the main.py file."
 ```
 
 ## Usage
+### JSON graph
+The JSON file consists of two keys: `nodes` and `edges`. The `nodes` key contains a list of nodes. Each node is a dictionary with the following keys:
+```json
+{
+    "id": "node-id",
+    "type": "registered-function-name",
+    "data": { // optional
+        "value": 3 // input key words arguments
+    }
+}
+```
+The `edges` key contains a list of edges. Each edge is a dictionary with the following keys:
+```json
+{
+    "id": "edge-id",
+    "source": "source-node-id",
+    "target": "target-node-id",
+    "source_handle": "output", // optional, output of the source node if the source node has multiple outputs (dictionary)
+    "target_handle": "input" // optional, input of the target node if the target node has multiple inputs
+}
+```
+For more information, see the [graph.json](graph.json) file.
+### Python code
 1. Define some functions or callables.
 ```python
 def input(value):
