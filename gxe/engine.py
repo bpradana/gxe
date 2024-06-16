@@ -1,3 +1,5 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
 from gxe.node import Node
 
 
@@ -52,30 +54,49 @@ class GraphExecutionEngine:
     def execute(self):
         """
         Executes the graph by traversing the nodes and their connections.
+        This method initializes a thread pool executor to execute the nodes in parallel.
+        Nodes with no dependencies (in-degree of 0) are executed first.
+        `futures` is used to keep track of nodes to be executed.
+        After a node is executed, its output is passed to the target node through the edge connection and the in-degree of the target node is decremented.
+        Nodes with no remaining dependencies are added to the queue for execution.
 
         Returns:
             dict: A dictionary of executed nodes, with node IDs as keys and Node objects as values.
 
         """
         queue = [node_id for node_id, degree in self.in_degree.items() if degree == 0]
+        futures = []
 
-        while queue:
-            node_id = queue.pop(0)
-            node = self.nodes[node_id]
-            node.execute()
+        with ThreadPoolExecutor() as executor:
+            while queue or futures:
+                # Submit all nodes in the queue for parallel execution
+                for node_id in queue:
+                    future = executor.submit(self._execute_node, node_id)
+                    futures.append(future)
+                queue = []
 
-            for edge in self.graph["edges"]:
-                if edge["source"] == node_id:
-                    target_node_id = edge["target"]
-                    target_node = self.nodes[target_node_id]
-                    output = (
-                        node.output[edge["source_handle"]]
-                        if "source_handle" in edge
-                        else node.output
-                    )
-                    target_node.set_input(edge["target_handle"], output)
-                    self.in_degree[target_node_id] -= 1
-                    if self.in_degree[target_node_id] == 0:
-                        queue.append(target_node_id)
+                for future in as_completed(futures):
+                    node_id = future.result()
+                    futures.remove(future)
+                    for edge in self.graph["edges"]:
+                        if edge["source"] == node_id:
+                            target_node_id = edge["target"]
+                            target_node = self.nodes[target_node_id]
+                            output = self._get_output_handle(self.nodes[node_id], edge)
+                            target_node.set_input(edge["target_handle"], output)
+                            self.in_degree[target_node_id] -= 1
+                            if self.in_degree[target_node_id] == 0:
+                                queue.append(target_node_id)
 
         return self.nodes
+
+    def _execute_node(self, node_id):
+        node = self.nodes[node_id]
+        node.execute()
+        return node_id
+
+    def _get_output_handle(self, node, edge):
+        if "source_handle" in edge:
+            if edge["source_handle"] is not None:
+                return node.output[edge["source_handle"]]
+        return node.output
